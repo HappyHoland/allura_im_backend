@@ -2,10 +2,18 @@ import connectToDB from "../config/dbConfig.js";
 
 const connection = await connectToDB(process.env.MONGODB_CONNECTION_STRING);
 
-export default function getAllPosts() {
-    const db = connection.db("imersao-instabytes")
+export function getAllPosts() {
+    const db = connection.db("imersao-instabytes");
     
-    const collection = db.collection("posts")
+    const collection = db.collection("posts");
 
     return collection.find().toArray();
+}
+
+export function createPost(newPost) {
+    const db = connection.db("imersao-instabytes");
+    
+    const collection = db.collection("posts");
+
+    return collection.insertOne(newPost);
 }
